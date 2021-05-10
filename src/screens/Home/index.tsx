@@ -1,13 +1,15 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import BatteryStatus from '../../components/batteryStatus.tsx'
-import * as Svg from 'react-native-svg';
+import { Button, Easing, StyleSheet, Text, View } from 'react-native';
+import BatteryStatus from '../../components/batteryStatus'
+import NetworkStatusProps from '../../components/networkStatus'
 
 export default function Home({ navigation}) {
+
   return (
     <View style={styles.container}>
-      <Text> screen from another screen!!</Text>
-      <BatteryStatus/>
+      <Text> Hello! from Home screen</Text>
+      <BatteryStatus />
+      <NetworkStatusProps />
       <Button
         title='Go to Picture screen'
         onPress={() => navigation.navigate('Picture')}
