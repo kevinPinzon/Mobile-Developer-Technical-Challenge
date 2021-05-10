@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
+import { Feather } from '@expo/vector-icons';
 
 export default class NetworkStatusProps extends React.Component {
 
@@ -10,18 +11,18 @@ export default class NetworkStatusProps extends React.Component {
 
   netInfo = NetInfo.addEventListener(state => {
     if (state.isConnected){
-      this.setState({networkState:"Connected!"});
+      this.setState({networkState:"Connected"});
     }else{
-      this.setState({networkState:"Disconnected!"});
+      this.setState({networkState:"Disconnected"});
     }
   })
 
   render() {
-    return (  
-      <View>
-        <Text>
-          Internet status conection: {this.state.networkState}
-        </Text>
+
+    return (
+      <View style={{padding:4, flexDirection: 'row'}}>
+        <Feather style={{ marginRight: 26}} name="wifi" size={24} color="black" />
+        <Text style={{ fontWeight: 'bold', marginVertical : 4}}>Internet status conection: {this.state.networkState}</Text>
       </View>
     );
   }

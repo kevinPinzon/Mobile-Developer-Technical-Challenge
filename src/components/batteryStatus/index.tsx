@@ -1,11 +1,13 @@
 import * as React from 'react';
 import * as Battery from 'expo-battery';
 import { StyleSheet, Text, View } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default class BatteryStatusProps extends React.Component {
 
   state = {
     batteryLevel: null,
+    batteryIcon: "battery"
   };
 
   componentDidMount() {
@@ -17,12 +19,16 @@ export default class BatteryStatusProps extends React.Component {
   }
 
   async _subscribe() {
-    const batteryLevel = await Battery.getBatteryLevelAsync();
-    this.setState({ batteryLevel });
-    this._subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-      this.setState({ batteryLevel });
-      console.log('batteryLevel changed!', batteryLevel);
-    });
+    const batteryLevel = await Battery.getBatteryLevelAsync() * 100;
+    this.setState({ batteryLevel: Math.trunc(batteryLevel)});
+    
+    if (batteryLevel > 60) {
+      this.setState({ batteryIcon: "battery-full"});
+    }else if (batteryLevel > 30) {
+      this.setState({ batteryIcon: "battery-2"});
+    }else{
+      this.setState({ batteryIcon: "battery-1"});
+    }
   }
 
   _unsubscribe() {
@@ -32,11 +38,10 @@ export default class BatteryStatusProps extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text>Current Battery Level: {this.state.batteryLevel}</Text>
+      <View style={{padding:4, flexDirection: 'row'}}>
+        <FontAwesome style={{ marginRight: 20}} name={this.state.batteryIcon} size={24} color='black' />
+        <Text style={{ fontWeight: 'bold', marginVertical : 4}}>Battery Level: {this.state.batteryLevel}%</Text>
       </View>
     );
   }
 }
-
-
