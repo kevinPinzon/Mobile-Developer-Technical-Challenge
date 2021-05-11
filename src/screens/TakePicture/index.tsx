@@ -15,14 +15,14 @@ export default function Picture({ navigation}) {
 
   const _startCamera = async () => {
     const {status} = await Camera.requestPermissionsAsync()
-    console.log(status)
+
     if (status === 'granted') {
       setStartCamera(true)
     } else {
       console.log("Access denied")
     }
   }
-  // _startCamera.call()
+  _startCamera.call()
 
   const _switchCamera = async () => {
     if (cameraType == Camera.Constants.Type.front) {
@@ -36,7 +36,6 @@ export default function Picture({ navigation}) {
     if (!camera) return
     
     const photo = await camera.takePictureAsync()
-    console.log(photo)
     setPreviewVisible(true)
     setCapturedImage(photo)
   }
@@ -72,7 +71,7 @@ export default function Picture({ navigation}) {
 
   return (
     <View style={styles.container}>
-      <NetworkStatusProps />
+      {/* <NetworkStatusProps /> */}
       <BatteryStatus /> 
       
       <Button style={styles.button} title='Clear' disabled={!previewVisible} onPress={_retakePicture} />
@@ -84,6 +83,7 @@ export default function Picture({ navigation}) {
           <Camera
             type={cameraType}
             style={{flex: 1,width:"100%"}}
+            ratio={'1:1'}
             ref={(r) => {
               camera = r
             }}
