@@ -17,13 +17,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.kpinzon.sumadi",
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryAddUsageDescription": "Necesario para guardar imagenes",
+        "NSPhotoLibraryUsageDescription": "Necesario para guardar fotografias",
+        "NSCameraUsageDescription": "Necesario para capturar fotografias"
+      }
     },
     "android": {
+      "package": "com.kpinzon.sumadi",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": ["READ_EXTERNAL_STORAGE","WRITE_EXTERNAL_STORAGE","CAMERA"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
