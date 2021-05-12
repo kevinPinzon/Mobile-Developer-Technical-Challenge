@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Platform, ImageBackground } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -34,6 +34,21 @@ export default function Home({ navigation}) {
     <View style={styles.container}>
       <NetworkStatusProps />
       <BatteryStatus />
+
+      <View
+        style={{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        marginTop: '25%'
+        }}
+      >
+        <ImageBackground
+          source={{uri: 'https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/48026163796/original/ThC1stockOoNKHPeiAAZ9tH6QiCCoOpDLQ.png?1581011471'}}
+          style={{ flex: 1 }}
+          >
+        </ImageBackground>
+      </View>
       
       <View style={styles.containerBtns}>
         <View style={{marginVertical:2}}>

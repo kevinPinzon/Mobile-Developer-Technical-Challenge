@@ -12,11 +12,13 @@ import * as Permissions from 'expo-permissions';
 export default function DisplayPicture({route, navigation }) {
 
     const { image } = route.params
-    const [imggaResult, SeTimggaResult] = React.useState("")
+    const [imggaResult, SeTimggaResult] = React.useState("loading...")
 
     useEffect(() => {
-      if(imggaResult === "")
-      getImaggaData()
+      if(imggaResult === "loading...")
+        getImaggaData()
+      // postImaggaData()
+
     }, []);
     
     function postImaggaData() {
@@ -26,7 +28,12 @@ export default function DisplayPicture({route, navigation }) {
       formdata.append("image_base64", image)
 
       const options = {
-        body: formdata,
+        body: JSON.stringify({
+          "image_base64": {
+            value: image,
+          }
+        }),
+        // body: formdata,
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',

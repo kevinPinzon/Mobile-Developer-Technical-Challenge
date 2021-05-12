@@ -3,21 +3,6 @@ import * as Battery from 'expo-battery';
 import { Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-import * as Permissions from 'expo-permissions';
-import * as Notifications from 'expo-notifications';
-
-// const getToken = async () => {
-//   const {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-//   if (status !== 'granted') {
-//     alert('Permissions denied')
-//     return
-//   }else{
-//     const token = await Notifications.getExpoPushTokenAsync()
-//     console.log('tokeeen', token)
-//     return token.data
-//   }
-// }
-
 export default class BatteryStatusProps extends React.Component {
 
   state = {
@@ -26,7 +11,6 @@ export default class BatteryStatusProps extends React.Component {
   };
 
   componentDidMount() {
-    // getToken()
     this._subscribe();
   }
 
@@ -56,7 +40,7 @@ export default class BatteryStatusProps extends React.Component {
     return (
       <View style={{padding:4, flexDirection: 'row'}}>
         <FontAwesome style={{ marginRight: 20}} name={this.state.batteryIcon} size={24} color='black' />
-        <Text style={{ fontWeight: 'bold', marginVertical : 4}}>Battery Level: {this.state.batteryLevel}%</Text>
+        <Text style={{ fontWeight: 'bold', marginVertical : 4}}>Battery Leveeeell: {this.state.batteryLevel}%</Text>
       </View>
     );
   }
