@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ImageBackground, StyleSheet, View, FlatList } from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 
 import BatteryStatus from '../../components/batteryStatus'
@@ -12,47 +12,63 @@ import * as Permissions from 'expo-permissions';
 export default function DisplayPicture({route, navigation }) {
 
     const { image } = route.params
-    const [imggaResult, SeTimggaResult] = React.useState('vacio')
+    const [imggaResult, SeTimggaResult] = React.useState("")
 
     useEffect(() => {
-      if(imggaResult === 'vacio')
-        getImaggaData()
+      if(imggaResult === "")
+      getImaggaData()
     }, []);
     
-    function getImaggaData() {
+    function postImaggaData() {
       let apiUrl = 'https://api.imagga.com/v2/tags';
-      
-      let params = {
-        image_base64: image
-      };
+    
+      let formdata = new FormData()
+      formdata.append("image_base64", image)
 
-      let formData = new FormData()
-      formData.append("image_base64", image)
-      
       const options = {
-        body: formData,
+        body: formdata,
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
           'apiKey': 'acc_cd4e1e72aff83d9',
           'apiSecret': '08c84ab33abb36edb2568cf07139e398',
           'Authorization': 'Basic YWNjX2NkNGUxZTcyYWZmODNkOTowOGM4NGFiMzNhYmIzNmVkYjI1NjhjZjA3MTM5ZTM5OA=='
-          
         },
         method: 'POST',
       }
-
       fetch(apiUrl, options)
       .then((response) => response.json())
-        .then((responseJson) => {
-          alert(responseJson)
-          SeTimggaResult('success')
-          console.log('getImaggaData - success',responseJson)
-        })
-        .catch(error => {
-          SeTimggaResult('error')
-          console.error('getImaggaData - error', error)
-        })
+      .then((responseJson) => {
+        alert(JSON.stringify(responseJson));
+        SeTimggaResult(JSON.stringify(responseJson))
+      })
+      .catch(error => {
+        SeTimggaResult('error')
+      })
+    }
+    
+    function getImaggaData() {
+      let apiUrl = 'https://api.imagga.com/v2/tags?image_url=https://docs.imagga.com/static/images/docs/sample/japan-605234_1280.jpg';
+      
+      const options = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          'apiKey': 'acc_cd4e1e72aff83d9',
+          'apiSecret': '08c84ab33abb36edb2568cf07139e398',
+          'Authorization': 'Basic YWNjX2NkNGUxZTcyYWZmODNkOTowOGM4NGFiMzNhYmIzNmVkYjI1NjhjZjA3MTM5ZTM5OA=='
+        },
+        method: 'GET',
+      }
+      fetch(apiUrl, options)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        SeTimggaResult(JSON.stringify(responseJson))
+        alert(JSON.stringify(responseJson))
+      })
+      .catch(error => {
+        SeTimggaResult('error')
+      })
     }
 
     async function saveImage() {
@@ -89,12 +105,16 @@ export default function DisplayPicture({route, navigation }) {
             </ImageBackground>
         </View>
         
-        <Text style={{marginVertical:20}}>JSON: {imggaResult}</Text>
-
+        <View style={styles.scrollView}>
+        <ScrollView>
+          <Text style={styles.text && {marginVertical:20}}>{imggaResult}</Text>
+        </ScrollView>
+        </View>
+        
         <View>
-            <Button style={styles.button}
-                title='Save this picture to gallery'
-                onPress={() => saveImage()}/>
+          <Button style={styles.button}
+              title='Save this picture to gallery'
+              onPress={() => saveImage()}/>
         </View>
     </View>
       )
@@ -121,5 +141,13 @@ const styles = StyleSheet.create({
       textAlign: "center",
       marginBottom: 10,
       fontSize: 24,
+    },
+    scrollView: {
+      height: '40%',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+    },
+    text: {
+      fontSize: 42,
     },
   });

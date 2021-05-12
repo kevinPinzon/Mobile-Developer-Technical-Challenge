@@ -1,7 +1,22 @@
 import * as React from 'react';
 import * as Battery from 'expo-battery';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+
+import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
+
+// const getToken = async () => {
+//   const {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+//   if (status !== 'granted') {
+//     alert('Permissions denied')
+//     return
+//   }else{
+//     const token = await Notifications.getExpoPushTokenAsync()
+//     console.log('tokeeen', token)
+//     return token.data
+//   }
+// }
 
 export default class BatteryStatusProps extends React.Component {
 
@@ -11,6 +26,7 @@ export default class BatteryStatusProps extends React.Component {
   };
 
   componentDidMount() {
+    // getToken()
     this._subscribe();
   }
 
