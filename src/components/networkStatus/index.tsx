@@ -9,13 +9,16 @@ export default class NetworkStatusProps extends React.Component {
     networkState: null,
   };
 
-  netInfo = NetInfo.addEventListener(state => {
-    if (state.isConnected){
-      this.setState({networkState:"Connected"});
-    }else{
-      this.setState({networkState:"Disconnected"});
-    }
-  })
+  componentDidMount() {
+    const netInfo = NetInfo.addEventListener(state => {
+      if (state.isConnected){
+        this.setState({networkState:"Connected"});
+      }else{
+        this.setState({networkState:"Disconnected"});
+      }
+    })
+  }
+
 
   render() {
 

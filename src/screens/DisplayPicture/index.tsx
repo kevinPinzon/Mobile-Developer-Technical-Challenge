@@ -39,7 +39,6 @@ export default function DisplayPicture({route, navigation }) {
       fetch(apiUrl, options)
       .then((response) => response.json())
       .then((responseJson) => {
-        alert(JSON.stringify(responseJson));
         SeTimggaResult(JSON.stringify(responseJson))
       })
       .catch(error => {
@@ -64,7 +63,6 @@ export default function DisplayPicture({route, navigation }) {
       .then((response) => response.json())
       .then((responseJson) => {
         SeTimggaResult(JSON.stringify(responseJson))
-        alert(JSON.stringify(responseJson))
       })
       .catch(error => {
         SeTimggaResult('error')
@@ -76,15 +74,15 @@ export default function DisplayPicture({route, navigation }) {
       if (status === 'granted') {
         const assest = await MediaLibrary.createAssetAsync(image)
         MediaLibrary.createAlbumAsync('Laureate images', assest)
-        alert('image saved!')
+        alert('Image saved successfully')
       }else{
-        alert('Permissions denied')
+        console.log('Permissions denied')
       }
     }
 
     return (
         <View style={styles.container}>
-          {/* <NetworkStatusProps /> */}
+          <NetworkStatusProps />
           <BatteryStatus />
 
           <View
@@ -143,7 +141,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
     },
     scrollView: {
-      height: '40%',
+      maxHeight:'40%',
       paddingVertical: 10,
       paddingHorizontal: 20,
     },

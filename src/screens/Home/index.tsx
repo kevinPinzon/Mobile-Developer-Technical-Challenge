@@ -34,15 +34,21 @@ export default function Home({ navigation}) {
     <View style={styles.container}>
       <NetworkStatusProps />
       <BatteryStatus />
+      
       <View style={styles.containerBtns}>
-        <Button style={styles.button}
-          title='Take new pictures'
-          onPress={() => navigation.navigate('Picture')}
-        />
-        <Button style={styles.button}
-          title='Load Picture from galery'
-          onPress={pickImage}
-        />
+        <View style={{marginVertical:2}}>
+          <Button
+            title='Take new pictures'
+            onPress={() => navigation.navigate('Picture')}
+          />
+        </View>
+      
+        <View style={{marginVertical:2}}>
+          <Button
+            title='Load Picture from gallery'
+            onPress={pickImage}
+          />
+        </View>
       </View>
     </View>
   )
@@ -58,7 +64,6 @@ const styles = StyleSheet.create({
   containerBtns: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: "center",
   },
   button: {
     width: 250,

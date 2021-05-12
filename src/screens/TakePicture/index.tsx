@@ -71,10 +71,13 @@ export default function Picture({ navigation}) {
 
   return (
     <View style={styles.container}>
-      {/* <NetworkStatusProps /> */}
+      <NetworkStatusProps />
       <BatteryStatus /> 
       
-      <Button style={styles.button} title='Clear' disabled={!previewVisible} onPress={_retakePicture} />
+      <View style={{marginTop:'6%'}}>
+        <Button title='Clear' disabled={!previewVisible} onPress={_retakePicture} />
+      </View>
+      
       <View style={styles.boxContainer}>
       {startCamera ? (
         previewVisible && capturedImage ? (
@@ -83,7 +86,7 @@ export default function Picture({ navigation}) {
           <Camera
             type={cameraType}
             style={{flex: 1,width:"100%"}}
-            ratio={'1:1'}
+            ratio={'16:9'}
             ref={(r) => {
               camera = r
             }}
@@ -128,11 +131,17 @@ export default function Picture({ navigation}) {
     </View>
   
     <View>
-      <Button style={styles.button} title='Flip Camera' disabled={!startCamera || previewVisible} onPress={_switchCamera} />
-      <Button style={styles.button} title='Take picture' disabled={!startCamera || previewVisible} onPress={_takePicture} />
-      <Button style={styles.button} title='Next' disabled = {!previewVisible} 
+      <View style={styles.containerBtns}>
+        <Button title='Flip Camera' disabled={!startCamera || previewVisible} onPress={_switchCamera} />
+      </View>
+      <View style={styles.containerBtns}>
+        <Button title='Take picture' disabled={!startCamera || previewVisible} onPress={_takePicture} />
+      </View>
+      <View style={styles.containerBtns}>
+        <Button title='Next' disabled = {!previewVisible} 
         onPress={() => navigation.navigate('DisplayPicture', {image: capturedImage.uri})}
-      />
+        />
+      </View>
     </View>
         
     </View>
@@ -145,13 +154,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
-    marginHorizontal: 10,
+    marginVertical: 10
   },
   container: {
     flex: 1,
-    marginVertical: 10,
-    marginHorizontal: 20,
+    marginVertical: 20,
+    marginHorizontal: 40
   },
   button: {
     flex: 1,
@@ -169,5 +177,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
     fontSize: 24,
+  },
+  containerBtns: {
+    marginVertical:2
   },
 });
